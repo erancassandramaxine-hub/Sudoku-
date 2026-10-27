@@ -19,7 +19,7 @@ The reference provided for the activity was https://sudoku-game-gray.vercel.app/
 
 # Step 3: Facebook/Instagram post
 
-Hey friends! 🧩💜 I'm working on an HCI activity, and I'd love your help testing **Sudoku Pause**, my modified Sudoku prototype!
+Hey friends! 🧩💜 I'm working on an HCI activity, and I'd love your help testing **Sudoku Pro**, my modified Sudoku prototype!
 
 It has a warm cream-and-sage theme with dark mode, a hint button, a timer, a mistake counter, and Easy/Medium/Hard puzzles. You can also adjust sounds, matching-number highlights, and mistake feedback in Settings. It's made for students, Sudoku beginners, and anyone who enjoys a little brain break.
 
@@ -41,7 +41,7 @@ After playing for a few minutes, please answer these three questions using **1�
 
 **Rating: __/5 | Comment: __**
 
-**Q3 — Satisfaction:** Overall, how satisfied were you with playing Sudoku Pause?
+**Q3 — Satisfaction:** Overall, how satisfied were you with playing Sudoku Pro?
 
 1 = Very dissatisfied · 2 = Dissatisfied · 3 = Neither dissatisfied nor satisfied · 4 = Satisfied · 5 = Very satisfied
 

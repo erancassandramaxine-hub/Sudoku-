@@ -1,4 +1,4 @@
-# Sudoku Pause
+# Sudoku Pro
 
 ## Open the game
 

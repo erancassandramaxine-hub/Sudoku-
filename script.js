@@ -495,7 +495,7 @@
       this.elements.theme.setAttribute("aria-pressed", String(dark));
       this.elements.settingsTheme.textContent = dark ? "Use light mode" : "Use dark mode";
       this.elements.settingsTheme.setAttribute("aria-pressed", String(dark));
-      this.elements.themeColor.setAttribute("content", dark ? "#1c2722" : "#f7f4ec");
+      this.elements.themeColor.setAttribute("content", dark ? "#141b22" : "#f6f8f9");
     }
   }
 
