@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f4ec">
+  <meta name="description" content="A friendly Sudoku game with light and dark themes, hints, a timer, and three difficulty levels.">
+  <title>Sudoku pause · A little logic, a little breathing room</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Shared icons keep the intro artwork self-contained. -->
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><path d="m9 3-1 3-3 1-2 4 2 2v3l4 3 3-1 3 1 4-3v-3l2-2-2-4-3-1-1-3Z"/><circle cx="12" cy="11" r="3"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M12 5v16M12 5C8 2 4 3 2 4v15c3-1 6-1 10 2 4-3 7-3 10-2V4c-2-1-6-2-10 1Z"/></symbol>
+  </svg>
+
+  <main class="welcome" id="welcome-screen">
+    <header class="home-header">
+      <a class="home-wordmark" href="index.html" aria-label="Sudoku Pause home">
+        <span class="home-mark" aria-hidden="true"><svg class="icon"><use href="#icon-grid"/></svg></span>
+        sudoku<span>pause.</span>
+      </a>
+      <nav class="home-navigation" aria-label="Homepage controls">
+        <button class="home-help" id="open-instructions" aria-haspopup="dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-book"/></svg>How to play
+        </button>
+        <button class="home-settings" id="open-settings" aria-label="Game settings" aria-haspopup="dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-settings"/></svg>
+        </button>
+      </nav>
+    </header>
+
+    <section class="home-hero" aria-labelledby="welcome-heading">
+      <div class="home-copy">
+        <p class="home-eyebrow"><span aria-hidden="true"></span>A good place to slow down</p>
+        <h1 id="welcome-heading">A small puzzle.<br><em>A well-earned<br>pause.</em></h1>
+        <p class="home-description">
+          Give your scrolling thumb a break. Settle into a Sudoku,
+          follow your curiosity, and see where the next number takes you.
+        </p>
+        <div class="home-actions">
+          <button class="home-start" id="start-game">
+            Let's play <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg>
+          </button>
+          <button class="home-continue" id="continue-game" disabled>Continue my puzzle</button>
+        </div>
+        <p class="home-reassurance">Three levels. A little help when you need it. Your own pace.</p>
+      </div>
+
+      <div class="home-art" aria-hidden="true">
+        <div class="art-heading"><span>THE NUMBER CORNER</span><span>01 — 09</span></div>
+        <div class="home-board-frame"><div class="preview-grid" id="puzzle-preview"></div></div>
+        <div class="art-caption"><span class="art-asterisk">✳</span><p>Nine numbers.<br>A fresh way to focus.</p></div>
+        <span class="art-margin-note">ONE SQUARE AT A TIME</span>
+      </div>
+    </section>
+
+    <section class="home-bottom" aria-label="Your progress and game features">
+      <div class="home-session">
+        <div class="session-heading"><span class="home-eyebrow">Your little wins</span><span>This visit</span></div>
+        <div class="welcome-stats" aria-label="Statistics for this visit">
+          <div><strong id="total-played">0</strong><span>Puzzles started</span></div>
+          <div><strong id="total-completed">0</strong><span>Finished</span></div>
+          <div><strong id="best-time">–</strong><span>Best time</span></div>
+        </div>
+        <p class="session-note">Your progress stays here until you close or refresh the page.</p>
+      </div>
+      <div class="home-features">
+        <article><span class="feature-number">01</span><h2>Find your level.</h2><p>Start easy or take on a challenge. Pick your difficulty in the game.</p></article>
+        <article><span class="feature-number">02</span><h2>Get a little nudge.</h2><p>Unlimited hints keep you moving when a square has you stumped.</p></article>
+        <article><span class="feature-number">03</span><h2>Make it your moment.</h2><p>Light or dark. Timed, but never rushed. Pause whenever you like.</p></article>
+      </div>
+    </section>
+    <footer class="home-footer"><span>A little logic looks good on you.</span><span>Sudoku Pause · HCI prototype</span></footer>
+  </main>
+
+  <dialog class="welcome-dialog" id="instructions-dialog" aria-labelledby="instructions-title">
+    <h2 id="instructions-title">One square at a time.</h2>
+    <ol>
+      <li>Fill every row, column, and 3 × 3 box with 1–9, without repeating a number.</li>
+      <li>Select a square, then tap a number. You can also use arrow keys and number keys.</li>
+      <li>Use Erase to change your entry, or Get a hint when you need a hand.</li>
+      <li>Choose Easy, Medium, or Hard. Pause whenever you like—there is no mistake limit.</li>
+    </ol>
+    <button class="primary" id="close-instructions">Got it</button>
+  </dialog>
+
+  <dialog class="welcome-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <p class="eyebrow">Your game, your pace</p>
+    <h2 id="settings-title">Make yourself comfortable.</h2>
+    <p class="settings-description">A few little adjustments to make this moment yours.</p>
+    <div class="settings-options">
+      <div class="settings-appearance">
+        <span>Appearance</span>
+        <button id="settings-theme" aria-pressed="false">Use dark mode</button>
+      </div>
+      <label class="setting-row" for="settings-sound">
+        <span><strong>Game sounds</strong><small>Soft notes for moves, hints, and little wins.</small></span>
+        <input type="checkbox" class="setting-switch" id="settings-sound" checked>
+      </label>
+      <label class="setting-row" for="settings-matches">
+        <span><strong>Highlight matching numbers</strong><small>Spot every copy of your selected number.</small></span>
+        <input type="checkbox" class="setting-switch" id="settings-matches" checked>
+      </label>
+      <label class="setting-row" for="settings-mistakes">
+        <span><strong>Show mistakes</strong><small>Mark wrong entries and show your mistake count.</small></span>
+        <input type="checkbox" class="setting-switch" id="settings-mistakes" checked>
+      </label>
+    </div>
+    <p class="settings-puzzle-count" id="settings-mistake-count">Current puzzle: 0 mistakes</p>
+    <p class="settings-description">Settings last for this visit. Reset restores light mode and turns all three options on. Your puzzle stays as it is.</p>
+    <button class="reset-settings" id="reset-settings">Reset settings to defaults</button>
+    <p class="settings-status" id="settings-status" role="status" aria-live="polite"></p>
+    <button class="primary" id="close-settings">Done</button>
+  </dialog>
+
+  <div class="shell" id="game-screen" hidden>
+    <header class="game-header">
+      <div class="home-wordmark">
+        <span class="home-mark" aria-hidden="true"><svg class="icon"><use href="#icon-grid"/></svg></span>
+        sudoku<span>pause.</span>
+      </div>
+      <div class="game-header-actions">
+        <button id="go-home">Home</button>
+        <button id="theme" aria-pressed="false">Dark mode</button>
+        <button id="game-settings" aria-label="Game settings" aria-haspopup="dialog">
+          <svg class="icon" aria-hidden="true"><use href="#icon-settings"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="intro">
+      <p class="home-eyebrow"><span aria-hidden="true"></span>A little logic. A little breathing room.</p>
+      <h1>Settle into <em>your next move.</em></h1>
+      <p>One square at a time. There’s no hurry here.</p>
+    </section>
+
+    <main class="layout">
+      <!-- Game board and controls -->
+      <section class="card" aria-label="Sudoku game">
+        <div class="toolbar">
+          <div>
+            <label for="difficulty">Difficulty</label>
+            <select id="difficulty">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <button class="primary" id="new">New game</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span>Time</span>
+            <strong id="timer">00:00</strong>
+          </div>
+          <div class="stat" id="mistake-stat">
+            <span>Mistakes</span>
+            <strong id="mistakes">0</strong>
+          </div>
+          <div class="stat">
+            <span>Hints used</span>
+            <strong id="hints">0</strong>
+          </div>
+        </div>
+
+        <div class="board-wrap">
+          <div
+            id="board"
+            class="board"
+            role="group"
+            aria-label="Sudoku board. Use arrow keys to move and 1 to 9 to enter a number."
+          ></div>
+          <div class="paused" id="overlay" hidden>
+            <strong>Take a breather.</strong>
+            <p class="muted">Your puzzle is paused.</p>
+            <button id="resume" class="primary">Resume game</button>
+          </div>
+        </div>
+
+        <div id="numbers" class="numbers" role="group" aria-label="Enter a number"></div>
+        <div class="actions">
+          <button id="erase">Erase</button>
+          <button id="hint">Get a hint</button>
+          <button id="pause">Pause</button>
+        </div>
+        <p id="status" role="status" aria-live="polite">
+          Select an empty square, then choose a number.
+        </p>
+      </section>
+
+      <!-- Beginner instructions and tips -->
+      <aside class="side">
+        <section class="card help">
+          <span class="eyebrow">New to Sudoku?</span>
+          <h2>Nine numbers. One simple rule.</h2>
+          <ol>
+            <li>Fill each empty square with a number from <strong>1 to 9</strong>.</li>
+            <li>
+              Each <strong>row, column, and bold 3 × 3 box</strong>
+              must contain every number once.
+            </li>
+            <li>
+              Select a square, then tap a number below the board or use your keyboard.
+            </li>
+            <li>
+              Stuck? <strong>Get a hint</strong> fills the selected square.
+              Use <strong>Erase</strong> to clear your entry.
+            </li>
+          </ol>
+          <details>
+            <summary>More about the controls</summary>
+            <p>
+              Bold numbers are starting clues and cannot be changed.
+              With Show mistakes enabled, wrong entries have an exclamation mark and a visible mistake counter.
+              Settings lets you adjust sounds, matching-number highlights, and mistake feedback.
+              There is no mistake limit. Hints are unlimited and counted separately.
+              If a clue or a correct square is selected, a hint fills another unfinished square.
+              Use arrow keys to move, 1–9 to enter, and Delete or Backspace to erase.
+              Choose a difficulty to start a new puzzle.
+            </p>
+          </details>
+        </section>
+
+        <section class="card tip">
+          <span class="eyebrow">A gentle nudge</span>
+          <h2>Start with what’s almost full.</h2>
+          <p>
+            Look for a row, column, or box with just a few missing numbers.
+            Small wins add up.
+          </p>
+        </section>
+
+        <section class="card">
+          <span class="eyebrow">Your pace</span>
+          <h2>No rush, no game over.</h2>
+          <p class="muted">
+            The timer is for your own reference. Pause whenever you like.
+            Switching away from this page also pauses the timer.
+          </p>
+        </section>
+      </aside>
+    </main>
+
+    <footer>
+      HCI usability prototype · Progress lasts until you close or refresh this page.
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
