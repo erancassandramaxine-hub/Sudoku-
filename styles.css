@@ -1361,3 +1361,149 @@ footer {
   .home-actions button { width: 100%; }
   .home-reassurance { gap: 8px 12px; }
 }
+
+/* Sakura edition: warm paper, plum ink, and botanical accents. */
+:root {
+  --bg: #fcf7fa;
+  --text: #342737;
+  --muted: #756775;
+  --accent: #9c3c68;
+  --soft: #f8e5ee;
+  --related: #faf2f6;
+  --selected: #f4cddd;
+  --line: #eaddE5;
+  --strong: #a48a9d;
+  --hint: #80415f;
+  --hint-bg: #fcf0f5;
+  --shadow: 0 8px 32px #60334c08;
+  --home-accent-hover: #802951;
+  --home-soft: #f8e5ee;
+}
+body.dark {
+  --bg: #1c1721;
+  --panel: #28212e;
+  --text: #f4eaf1;
+  --muted: #beacbd;
+  --accent: #f0aac8;
+  --accent-text: #321d2b;
+  --soft: #483044;
+  --related: #322737;
+  --selected: #603c55;
+  --line: #49394c;
+  --strong: #a88ca2;
+  --hint: #edbbd1;
+  --hint-bg: #382837;
+  --home-accent-hover: #ffd0e3;
+  --home-soft: #483044;
+}
+body {
+  background-image: radial-gradient(ellipse at 95% 0%, #df91b41a, transparent 50%), radial-gradient(ellipse at 0% 65%, #d5b3d21a, transparent 45%);
+}
+.home-mark {
+  background: linear-gradient(145deg, #b75984, #723651);
+  color: #fff;
+  box-shadow: 0 4px 12px #83365426, inset 0 1px 0 #ffffff30;
+  border-radius: 12px;
+}
+.dashboard-heading h1 { letter-spacing: -1.2px; }
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 48px;
+  gap: 60px;
+  border-radius: 26px;
+  border-color: #69445c;
+  background: radial-gradient(ellipse at 88% 10%, #87506d 0%, transparent 55%), linear-gradient(120deg, #2e2339, #4b2c43);
+  box-shadow: 0 20px 45px #60334c18, inset 0 1px 0 #ffffff15;
+}
+.sakura-branch {
+  position: absolute;
+  top: -20px;
+  right: -45px;
+  width: 570px;
+  max-width: 65%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: .9;
+}
+.home-copy .home-eyebrow { color: #f0c9dd; font-size: 9px; letter-spacing: 2px; }
+.home-copy .home-eyebrow > span { background: #f5b6d0; box-shadow: 0 0 0 4px #f5b6d015; }
+.home-copy h1 { font-size: clamp(36px, 3.8vw, 52px); line-height: 1.14; }
+.home-copy h1 em { display: inline-block; color: #f7bcd5; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 400; letter-spacing: -1.5px; }
+.home-description { color: #e2cedd; }
+.home-reassurance { color: #dcc0d3; }
+.home-reassurance span::before { background: #f1a9c7; }
+.home-art {
+  margin-top: 48px;
+  background: var(--panel);
+  border: 1px solid #ffffff50;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px #1b0e2a40;
+  transform: rotate(2deg);
+}
+.home-board-frame { border-radius: 7px; }
+.home-session, .home-features article, .layout > .card, .side .card { border-radius: 16px; box-shadow: var(--shadow); }
+.feature-number { color: var(--accent); background: var(--soft); border-radius: 9px; }
+.home-session { border-top: 3px solid var(--selected); }
+.intro { position: relative; overflow: hidden; }
+.intro::after {
+  content: '';
+  position: absolute;
+  inset: -45px -40px -65px auto;
+  width: 300px;
+  background: url('sakura.svg') center / contain no-repeat;
+  opacity: .45;
+  pointer-events: none;
+  z-index: -1;
+}
+button:not(.cell), select {
+  font-weight: 600;
+  letter-spacing: .1px;
+  box-shadow: 0 2px 3px #3b203508, inset 0 1px 0 #ffffff12;
+}
+button:not(.cell):not(:disabled):hover { border-color: var(--strong); box-shadow: 0 5px 14px #60334c14; }
+.home-navigation .home-help, .home-navigation .home-settings,
+.game-header-actions button, .actions button, .toolbar button, .toolbar select,
+.settings-appearance #settings-theme, .welcome-dialog button { border-radius: 11px; }
+button.primary {
+  background: linear-gradient(135deg, #ab4876, #85335e);
+  border-color: #9c3c68;
+  color: #fff;
+  box-shadow: 0 4px 10px #87375e26, inset 0 1px 0 #ffffff25;
+}
+button.primary:hover:not(:disabled) { background: linear-gradient(135deg, #963a66, #70274c); border-color: #85335e; }
+.home-actions button { min-height: 50px; border-radius: 12px; padding: 12px 20px; }
+.home-actions .home-start {
+  background: linear-gradient(135deg, #ffe2ee, #f2b5cf);
+  color: #4c2440;
+  border-color: #fbd0e2;
+  box-shadow: 0 6px 18px #170d282b, inset 0 1px 0 #ffffffa0;
+}
+.home-actions .home-start:hover:not(:disabled) { background: linear-gradient(135deg, #fff0f6, #fac9de); border-color: #fff0f6; }
+.home-actions .home-continue { background: #ffffff08; border-color: #b98da6; color: #fff0f7; }
+.home-actions .home-continue:hover:not(:disabled) { background: #ffffff15; border-color: #f1bdd5; }
+.home-actions .home-continue:disabled { color: #bba1b4; border-color: #7c5b72; box-shadow: none; background: transparent; }
+.numbers button { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--accent); }
+.numbers .number-active { background: var(--soft); border-color: var(--accent); }
+#hint { color: var(--accent); background: var(--soft); border-color: var(--selected); }
+.welcome-dialog { border-radius: 20px; }
+@media (prefers-reduced-motion: no-preference) {
+  button:not(.cell), select { transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease; }
+  button:not(.cell):not(:disabled):hover { transform: translateY(-2px); }
+  button:not(.cell):not(:disabled):active { transform: translateY(0); box-shadow: none; }
+}
+@media (max-width: 1000px) {
+  .home-hero { padding: 32px; gap: 30px; }
+  .home-copy h1 { font-size: 38px; }
+  .sakura-branch { right: -65px; }
+}
+@media (max-width: 680px) {
+  .home-hero { padding: 30px 24px; gap: 28px; border-radius: 22px; }
+  .sakura-branch { width: 360px; max-width: 85%; top: auto; bottom: 160px; right: -95px; opacity: .65; }
+  .home-copy h1 { font-size: clamp(33px, 8.5vw, 46px); }
+  .home-copy .home-eyebrow { font-size: 8px; letter-spacing: 1.3px; }
+  .home-art { margin-top: 0; transform: none; }
+  .home-actions { gap: 10px; }
+  .intro::after { opacity: .2; }
+}
